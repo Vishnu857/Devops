@@ -7,6 +7,24 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Setup') {
+            steps {
+                env.inputs = params.each { param -> return "${param.key} = ${param.value} " }
+            }
+        }
+        stage('Confirmation') {
+            when {
+                expression {
+                    return params.Approve == false && params.Choice.equals("Run")
+                }
+            }
+            steps {
+                timeout(time: 5, unit: "MINUTES") {
+                   input message: "Are you sure to proceed? 
+                }
+            }
+        }
+
 
         stage('Run Python') {
             steps {
