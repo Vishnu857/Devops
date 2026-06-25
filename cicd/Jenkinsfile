@@ -2,21 +2,27 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+
         stage('Setup') {
             steps {
                 wrap([$class: 'BuildUser']) {
                     script {
-                        env.inputs = params.each { param -> return "${param.key} = ${param.value} " }
+                        env.INPUTS = params.collect { key, value ->
+                            "${key}=${value}"
+                        }.join(", ")
+
+                        echo "Build Parameters: ${env.INPUTS}"
                     }
                 }
-
             }
         }
+
         stage('Confirmation') {
             when {
                 expression {
@@ -24,17 +30,37 @@ pipeline {
                 }
             }
             steps {
-                timeout(time: 5, unit: "MINUTES") {
-                   input message: "Are you sure to proceed? 
+                timeout(time: 5, unit: 'MINUTES') {
+                    input(
+                        message: 'Are you sure you want to proceed?',
+                        ok: 'Proceed'
+                    )
                 }
             }
         }
 
-
         stage('Run Python') {
             steps {
-                sh 'python3 scripts/main.py'
+                sh '''
+                    pwd
+                    ls -R
+                    python3 scripts/main.py
+                '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+
+        failure {
+            echo 'Pipeline failed.'
+        }
+
+        always {
+            echo 'Pipeline execution finished.'
         }
     }
 }
