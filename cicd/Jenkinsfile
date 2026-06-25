@@ -20,7 +20,7 @@ pipeline {
         stage('Confirmation') {
             when {
                 expression {
-                    return params.Approve == false && params.Choice.equals("Run")
+                    return !params.Approve && params.Choice == "Run"
                 }
             }
             steps {
