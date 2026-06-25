@@ -9,7 +9,12 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                env.inputs = params.each { param -> return "${param.key} = ${param.value} " }
+                wrap([$class: 'BuildUser']) {
+                    script {
+                        env.inputs = params.each { param -> return "${param.key} = ${param.value} " }
+                    }
+                }
+
             }
         }
         stage('Confirmation') {
