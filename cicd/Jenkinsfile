@@ -10,17 +10,13 @@ pipeline {
         }
 
         stage('Setup') {
-            steps {
-                wrap([$class: 'BuildUser']) {
+                steps {
                     script {
-                        env.INPUTS = params.collect { key, value ->
-                            "${key}=${value}"
-                        }.join(", ")
-
-                        echo "Build Parameters: ${env.INPUTS}"
-                    }
+                        env.Choice = params.Choice
+                        env.Approve = params.Approve
+                        echo "Build Parameters: choice -> ${env.Choice} approve -> ${env.Approve}"
+                    }    
                 }
-            }
         }
 
         stage('Confirmation') {
