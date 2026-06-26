@@ -22,7 +22,7 @@ pipeline {
        stage('Confirmation') {
             when {
                 expression {
-                    return params.AUTO_APPROVE == false
+                    return params.Approve == false
                 }
             }
             steps {
