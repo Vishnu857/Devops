@@ -22,7 +22,7 @@ pipeline {
         stage('Confirmation') {
             when {
                 expression {
-                    return !params.Approve && params.Choice == "Run"
+                    return params.Approve && params.Choice == "Run"
                 }
             }
             steps {
