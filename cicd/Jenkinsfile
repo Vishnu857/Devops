@@ -22,7 +22,7 @@ pipeline {
        stage('Confirmation') {
             when {
                 expression {
-                    return params.AUTO_APPROVE == false || params.ENVIRONMENT.equals("prod")
+                    return params.AUTO_APPROVE == false
                 }
             }
             steps {
