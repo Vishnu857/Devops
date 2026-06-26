@@ -3,7 +3,7 @@ import os
 
 Choice = os.getenv("Choice")
 
-if (choice=="Run"):
+if (Choice=="Run"):
   print("running")
 else:
   print("stopped")
