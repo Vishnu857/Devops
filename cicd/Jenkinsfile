@@ -19,18 +19,15 @@ pipeline {
                 }
         }
 
-        stage('Confirmation') {
+       stage('Confirmation') {
             when {
                 expression {
-                    return params.Approve && params.Choice == "Run"
+                    return params.AUTO_APPROVE == false || params.ENVIRONMENT.equals("prod")
                 }
             }
             steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    input(
-                        message: 'Are you sure you want to proceed?',
-                        ok: 'Proceed'
-                    )
+                timeout(time: 5, unit: "MINUTES") {
+                   input message: "Are you sure to proceed?"
                 }
             }
         }
