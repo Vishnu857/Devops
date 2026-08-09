@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       Choice:
-        description: "Choose what to run"
+        description: "Choice parameter"
         required: true
         type: choice
         options:
