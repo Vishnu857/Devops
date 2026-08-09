@@ -1,0 +1,32 @@
+name: hello world
+run-name: Python Script - ${{ inputs.Choice }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      Choice:
+        description: "Choose what to run"
+        required: true
+        type: choice
+        options:
+          - Run
+          - Stop
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Python script
+        env:
+          Choice: ${{ inputs.Choice }}
+        run: |
+          python scripts/main.py
