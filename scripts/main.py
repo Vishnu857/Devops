@@ -3,9 +3,9 @@ import os
 
 Choice = os.getenv("Choice")
 parameter = os.getenv("parameter")
-if (Choice=="Run" & parameter=="start"):
+if (Choice=="Run" and parameter=="start"):
   print("running")
-elif (Choice == "stop" & parameter == "start" ):
+elif (Choice == "stop" and parameter == "start" ):
   print("stopping with error")
   raise Exception("Something went wrong")
 else:
