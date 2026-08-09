@@ -1,5 +1,5 @@
 name: hello world
-run-name: Python Script - ${{ inputs.Choice }}
+run-name: "Python Script - ${{ inputs.Choice }} / ${{ inputs.parameter }}"
 
 on:
   workflow_dispatch:
