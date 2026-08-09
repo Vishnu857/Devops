@@ -5,7 +5,7 @@ Choice = os.getenv("Choice")
 parameter = os.getenv("parameter")
 if (Choice=="Run" and parameter=="start"):
   print("running")
-elif (Choice == "stop" and parameter == "start" ):
+elif ((Choice == "stop" and parameter == "start" )or(Choice == "run" and parameter == "stop")  ):
   print("stopping with error")
   raise Exception("Something went wrong")
 else:
